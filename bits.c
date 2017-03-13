@@ -65,8 +65,8 @@ INTEGER CODING RULES:
  
   You may assume that your machine:
   1. Uses 2s complement, 32-bit representations of integers.
-  2. Performs right shifts arithmetically.
-  3. Has unpredictable behavior when shifting an integer by more
+  2. Performs right shifts arithmetically.                  //算术右移
+  3. Has unpredictable behavior when shifting an integer by more      //unpredictable未定义的
      than the word size.
 
 EXAMPLES OF ACCEPTABLE CODING STYLE:
@@ -92,14 +92,14 @@ FLOATING POINT CODING RULES
 
 For the problems that require you to implent floating-point operations,
 the coding rules are less strict.  You are allowed to use looping and
-conditional control.  You are allowed to use both ints and unsigneds.
-You can use arbitrary integer and unsigned constants.
+conditional control.  You are allowed to use both ints and unsigneds.   //容许循环和条件控制
+You can use arbitrary integer and unsigned constants. //使用任意的int与unsigned常量
 
 You are expressly forbidden to:
   1. Define or use any macros.
   2. Define any additional functions in this file.
   3. Call any functions.
-  4. Use any form of casting.
+  4. Use any form of casting.                   //不可以转型
   5. Use any data type other than int or unsigned.  This means that you
      cannot use arrays, structs, or unions.
   6. Use any floating point data types, operations, or constants.
@@ -139,7 +139,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return 2;
+  int i; 
+  i = ~((~x) | (~y));
+  return i;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -150,15 +152,12 @@ int bitAnd(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-
-
-
-
-
-
-
-  return 2;
-
+  int i;
+  int j;
+  int result;
+  j = i << 3;
+  result = (x >> j) & 0xFF;
+  return result;
 }
 /* 
  * logicalShift - shift x to the right by n, using a logical shift
@@ -169,7 +168,10 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  int i;
+  int result;
+  i = ~(((1 << 31) >> n) << 1);
+  result = i & (n >> n);
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -178,7 +180,11 @@ int logicalShift(int x, int n) {
  *   Max ops: 40
  *   Rating: 4
  */
+ // 这道题实在想不出好的方法，感觉ops不够用
 int bitCount(int x) {
+  int MASK;
+  int total;
+  MASK = 0x1;
   return 2;
 }
 /* 
@@ -188,8 +194,11 @@ int bitCount(int x) {
  *   Max ops: 12
  *   Rating: 4 
  */
+ // 这题也蛮难
 int bang(int x) {
-  return 2;
+  int invx = ~x;            
+  int negx = negx + 1;
+  return (~negx & invx) & 1; 
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -198,7 +207,7 @@ int bang(int x) {
  *   Rating: 1
  */
 int tmin(void) {
-  return 2;
+  return (1 << 31);
 }
 /* 
  * fitsBits - return 1 if x can be represented as an 
@@ -210,7 +219,9 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  int thirtytwo_minus_n = 33 + ~n; // 32 + (~n + 1)
+  int truncated = x << thirtytwo_minus_n;
+  return !(truncated ^ x);
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -221,7 +232,8 @@ int fitsBits(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+    int offset = (x >> 31) & 0x1;
+    return (x >> n) + offset;
 }
 /* 
  * negate - return -x 
@@ -231,7 +243,8 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  int negx = ~x + 0x1;
+  return negx;
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
@@ -241,7 +254,8 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-  return 2;
+  int result = ((x >> 31) & 0x1) ^ 0x1
+  return result;
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -251,6 +265,7 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
+  int 
   return 2;
 }
 /*
