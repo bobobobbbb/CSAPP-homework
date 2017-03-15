@@ -265,8 +265,10 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  int 
-  return 2;
+  int negX = ~x + 1;
+  int addY = nagX + y;
+  int checkSign = (addY >> 31) & 0x1;
+  return ret ^ 0x1;
 }
 /*
  * ilog2 - return floor(log base 2 of x), where x > 0
@@ -276,7 +278,14 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4
  */
 int ilog2(int x) {
-  return 2;
+  int bitsNumber = 0;
+  bitsNumber = (!!(x >> 16)) << 4;
+  bitsNumber = bitsNumber + (!!(x >> (bitsNumber + 8)) << 3);
+  bitsNumber = bitsNumber + (!!(x >> (bitsNumber + 4)) << 2);
+  bitsNumber = bitsNumber + (!!(x >> (bitsNumber + 2)) << 1);
+  bitsNumber = bitsNumber + (!!(x >> (bitsNumber + 1)));
+
+  return bitsNumber;
 }
 /* 
  * float_neg - Return bit-level equivalent of expression -f for
@@ -290,7 +299,13 @@ int ilog2(int x) {
  *   Rating: 2
  */
 unsigned float_neg(unsigned uf) {
- return 2;
+  unsigned result;
+  unsigned tmp;
+  result = uf ^ 0x80000000;
+  tmp = uf & 0x7fffffff
+  if (tmp > 0x7f800000)
+    return uf;
+  return result;
 }
 /* 
  * float_i2f - Return bit-level equivalent of expression (float) x
@@ -302,6 +317,7 @@ unsigned float_neg(unsigned uf) {
  *   Rating: 4
  */
 unsigned float_i2f(int x) {
+
   return 2;
 }
 /* 
@@ -316,5 +332,11 @@ unsigned float_i2f(int x) {
  *   Rating: 4
  */
 unsigned float_twice(unsigned uf) {
-  return 2;
+  unsigned f = uf;
+  if ((f & 0x7f800000) == 0) {
+    f = (((f & 0x007f8000) << 1) | (0x80000000 & f));
+  } else if (f & 0x7f800000 != 0x7f800000) {
+    f = f + 0x00800000;
+  }
+  return f;
 }
