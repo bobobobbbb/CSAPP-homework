@@ -197,7 +197,7 @@ int bitCount(int x) {
  // 这题也蛮难
 int bang(int x) {
   int invx = ~x;            
-  int negx = negx + 1;
+  int negx = invx + 1;
   return (~negx & invx) & 1; 
 }
 /* 
