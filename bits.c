@@ -182,9 +182,20 @@ int logicalShift(int x, int n) {
  */
  // 这道题实在想不出好的方法，感觉ops不够用
 int bitCount(int x) {
-  int MASK;
-  int total;
+  int sum = 0;
+  int i = 0
   MASK = 0x1;
+  temp2 = x&tem1p;
+  temp2 = temp1 & (x >> 1);
+  temp2 = temp1 & (x >> 2);
+  temp2 = temp1 & (x >> 3);
+  temp2 = temp1 & (x >> 4);
+  temp2 = temp1 & (x >> 5);
+  temp2 = temp1 & (x >> 6);
+  temp2 = temp1 & (x >> 7);
+  
+  int i = 0xff | (0xff << 8);
+  sum = (sum >> 16) + (i)
   return 2;
 }
 /* 
@@ -196,9 +207,9 @@ int bitCount(int x) {
  */
  // 这题也蛮难
 int bang(int x) {
-  int invx = ~x;            
-  int negx = invx + 1;
-  return (~negx & invx) & 1; 
+    int invx = ~x;            
+    int negx = invx + 1;
+    return (~negx & invx) & 1; 
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -207,7 +218,7 @@ int bang(int x) {
  *   Rating: 1
  */
 int tmin(void) {
-  return (1 << 31);
+    return (1 << 31);
 }
 /* 
  * fitsBits - return 1 if x can be represented as an 
@@ -219,9 +230,9 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  int thirtytwo_minus_n = 33 + ~n; // 32 + (~n + 1)
-  int truncated = x << thirtytwo_minus_n;
-  return !(truncated ^ x);
+    int thirtytwo_minus_n = 33 + ~n; // 32 + (~n + 1)
+    int truncated = (x << thirtytwo_minus_n) >> thirty_two_minus_n;
+    return !(truncated ^ x);
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -233,7 +244,7 @@ int fitsBits(int x, int n) {
  */
 int divpwr2(int x, int n) {
     int offset = (x >> 31) & 0x1;
-    return (x >> n) + offset;
+    return (x >> n + (~offset + 1)) + offset;
 }
 /* 
  * negate - return -x 
